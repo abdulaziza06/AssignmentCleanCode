@@ -16,7 +16,8 @@ public class SensorDataProcessor {
     }
     
     // calculates average of sensor data
-    private double average(double[] array) {
+    // change the method name from average to calculateAverage
+    private double calculateAverage(double[] array) {
         int i = 0;
         // Change the variable name from val to sum
         double sum = 0;
@@ -27,7 +28,8 @@ public class SensorDataProcessor {
     }
     
     // calculate data
-    public void calculate(double divisor) {
+    //change the name from calculate to processSensorData
+    public void processSensorData(double divisor) {
         
         int i, j, k = 0;
         // Change the variable name from data2 to processedData
