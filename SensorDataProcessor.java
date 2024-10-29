@@ -3,7 +3,8 @@ public class SensorDataProcessor {
     public double[][][] data;
     public double[][] limit;
     // constructor
-    public void DataProcessor(double[][][] data, double[][] limit) {
+    // O19 The constructor doesnt have void return type and the name of the constructer must match the name of the class
+    public SensorDataProcessor(double[][][] data, double[][] limit) {
         this.data = data;
         this.limit = limit;
     }
