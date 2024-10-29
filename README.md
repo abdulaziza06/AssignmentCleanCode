@@ -1,2 +1,4 @@
 # AssignmentCleanCode
-Omar Akbar 1945009
+
+Omar Akbar - 1945009
+Abdulaziz Alhumaidi - 2141075

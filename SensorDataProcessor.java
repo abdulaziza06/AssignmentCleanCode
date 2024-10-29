@@ -1,3 +1,7 @@
+// missing import
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 public class SensorDataProcessor {
     
     // Senson data and limits.
@@ -5,7 +9,7 @@ public class SensorDataProcessor {
     public double[][] limit;
     
     // constructor
-    // O19 The constructor doesnt have void return type and the name of the constructer must match the name of the class
+    // The constructor doesnt have void return type and the name of the constructer must match the name of the class
     public SensorDataProcessor(double[][][] data, double[][] limit) {
         this.data = data;
         this.limit = limit;
@@ -14,56 +18,57 @@ public class SensorDataProcessor {
     // calculates average of sensor data
     private double average(double[] array) {
         int i = 0;
-        double val = 0;
+        // Change the variable name from val to sum
+        double sum = 0;
         for (i = 0; i < array.length; i++) {
-            val += array[i];
+            sum += array[i];
         }
-        return val / array.length;
+        return sum / array.length;
     }
     
-    // calculateذ data
-    public void calculate(double d) {
+    // calculate data
+    public void calculate(double divisor) {
         
         int i, j, k = 0;
-        double[][][] data2 = new double[data.length][data[0].length][data[0][0].length];
-        BufferedWriter out;
+        // Change the variable name from data2 to processedData
+        double[][][] processedData = new double[data.length][data[0].length][data[0][0].length];
         
         // Write racing stats data into a file
         try {
-            out = new BufferedWriter(new FileWriter("RacingStatsData.txt"));
+            // Change the variable name from out to writer
+            BufferedWriter writer = new BufferedWriter(new FileWriter("RacingStatsData.txt"));
             for (i = 0; i < data.length; i++) {
                 for (j = 0; j < data[0].length; j++) {
                     for (k = 0; k < data[0][0].length; k++) {
                         
-                        data2[i][j][k] = data[i][j][k] / d - Math.pow(limit[i][j], 2.0);
+                        processedData[i][j][k] = data[i][j][k] / divisor - Math.pow(limit[i][j], 2.0);
                         
-                        if (average(data2[i][j]) > 10 && average(data2[i][j]) < 50)
+                        // Add curly brackets 
+                        if (average(processedData[i][j]) > 10 && average(processedData[i][j]) < 50){
                             break;
-
-                        else if (Math.max(data[i][j][k], data2[i][j][k]) > data[i][j][k])
+                        }else if (Math.max(data[i][j][k], processedData[i][j][k]) > data[i][j][k]){
                             break;
-
-                        else if (Math.pow(Math.abs(data[i][j][k]), 3) <
-                                Math.pow(Math.abs(data2[i][j][k]), 3)
-                                && average(data[i][j]) < data2[i][j][k] && (i + 1)
-                                * (j + 1) > 0)
+                        }else if (Math.pow(Math.abs(data[i][j][k]), 3) <
+                                Math.pow(Math.abs(processedData[i][j][k]), 3)
+                                && average(data[i][j]) < processedData[i][j][k] && (i + 1)
+                                * (j + 1) > 0){
                                 
-                            data2[i][j][k] *= 2;
-                        
-                        else
-                            continue;
+                                processedData[i][j][k] *= 2;
+                            }
+                        // Delete unnecessary else
                     }
                 }
             }
-            for (i = 0; i < data2.length; i++) {
-                for (j = 0; j < data2[0].length; j++) {
-                    out.write(data2[i][j] + "\t");
+            for (i = 0; i < processedData.length; i++) {
+                for (j = 0; j < processedData[0].length; j++) {
+                    writer.write(processedData[i][j] + "\t");
                 }
             }
-            out.close();
+            writer.close();
 
         } catch (Exception e) {
-            System.out.println("Error= " + e);
+            // add the exception message
+            System.out.println("Error writing to file: " + e.getMessage());
         }
     }
 }
